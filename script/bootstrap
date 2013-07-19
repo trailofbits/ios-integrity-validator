@@ -3,8 +3,6 @@ set -e
 
 source 'lib/common.sh'
 
-LDID_URL='http://networkpx.googlecode.com/files/ldid'
-LDID_DEST='/tmp/ldid'
 OSXFUSE_URL='http://downloads.sourceforge.net/project/osxfuse/osxfuse-2.6.0/osxfuse-2.6.0.dmg'
 OSXFUSE_DEST='/tmp/osxfuse.dmg'
 OSXFUSE_VOLUME='/Volumes/FUSE for OS X/'
@@ -18,7 +16,7 @@ typeset -a PIP_PACKAGES
 PIP_PACKAGES=(M2crypto construct progressbar setuptools pycrypto)
 
 log 'Linking /Developer'
-sudo ln -sf `xcode-select --print-path` //
+sudo ln -sf $DEVELOPER_ROOT //
 
 log 'Linking codesign_allocate'
 sudo ln -sf $CODESIGN_PATH /usr/bin
