@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 source 'lib/common.sh'
 CACHE="${HOME}/Library/Caches/com.trailofbits.iverify"
 

@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 # Logs what directory is being entered and then calls builtin `cd`.
 #
 # $1 - Directory to change to
