@@ -17,11 +17,11 @@ BREW_PACKAGES=(python swig)
 typeset -a PIP_PACKAGES
 PIP_PACKAGES=(M2crypto construct progressbar setuptools pycrypto)
 
-#log 'Linking /Developer'
-#sudo ln -sf `xcode-select --print-path` //
+log 'Linking /Developer'
+sudo ln -sf `xcode-select --print-path` //
 
-#log 'Linking codesign_allocate'
-#sudo ln -sf $CODESIGN_PATH /usr/bin
+log 'Linking codesign_allocate'
+sudo ln -sf $CODESIGN_PATH /usr/bin
 
 if [[ -d '/Library/Frameworks/OSXFUSE.framework' ]]
 then
