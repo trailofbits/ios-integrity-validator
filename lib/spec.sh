@@ -4,6 +4,7 @@ source 'lib/versions/ipod4g.sh'
 function spec {
   version=$1
 
+  mkdir -p 'specs'
   dest="specs/${version}.spec"
   if [[ -f $dest ]]
   then
