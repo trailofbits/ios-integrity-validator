@@ -13,6 +13,9 @@ then
   cat <<EOF
 Usage: $0 DEVICE VERSION
   Supported devices:
+    iPhone3,1
+    iPhone3,2
+    iPhone3,3
     iPod4,1
 EOF
   exit
