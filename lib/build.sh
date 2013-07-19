@@ -1,6 +1,5 @@
 source 'lib/common.sh'
 source 'lib/download.sh'
-source 'lib/versions/ipod4g.sh'
 
 function build_ramdisk {
   local version=$1

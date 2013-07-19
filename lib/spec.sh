@@ -1,5 +1,4 @@
 source 'lib/common.sh'
-source 'lib/versions/ipod4g.sh'
 
 function spec {
   version=$1

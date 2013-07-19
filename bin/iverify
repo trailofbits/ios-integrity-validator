@@ -7,16 +7,21 @@ source 'lib/verify.sh'
 source 'lib/download.sh'
 source 'lib/spec.sh'
 
-if (( $# != 1 ))
+if (( $# != 2 ))
 then
   err 'Invalid arguments'
   cat <<EOF
-  Usage: $0 VERSION
+Usage: $0 DEVICE VERSION
+  Supported devices:
+    iPod4,1
 EOF
   exit
 fi
 
-version=$1
+device=$1
+source "lib/devices/${device}.sh"
+
+version=$2
 
 download_redsn0w
 download_ipsw $version
