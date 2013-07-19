@@ -1,4 +1,10 @@
+SDKVER?=7.0
+SDKVER?=6.1
+SDKVER?=6.0
 SDKVER?=5.1
+SDKVER?=5.0
+SDKVER?=4.3
+SDKVER?=4.2
 ARCH?=armv7
 MINIOS=4.0
 SDK=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS$(SDKVER).sdk/

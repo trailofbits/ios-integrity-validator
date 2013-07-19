@@ -43,12 +43,11 @@ function build_ramdisk {
   export OUTKERNEL=${args[6]}
 
   log 'Building ramdisk_tools'
-  SDKVER='6.1' check make -C ramdisk_tools
+  check make -C ramdisk_tools
 
   log 'Building ramdisk'
   check ./build_ramdisk.sh ${IPSW} ${RAMDISKNAME} ${KEY} ${IV} ${CUSTOMRAMDISK}
 
   popd
 }
-
 
