@@ -7,7 +7,7 @@ function verify {
   mountpoint='/mnt1'
   device mount_hfs -o ro /dev/disk0s1s1 $mountpoint
 
-  log 'Running mtree'
+  log 'Verifying filesystem'
   spec="specs/${version}.spec"
   output=$(device /usr/local/bin/mtree \
     -k $MTREE_KEYWORDS \
@@ -18,11 +18,10 @@ function verify {
   if (( $? == 2 ))
   then
     warn 'Device filesystem has been modified'
-    echo $output
   elif (( $? == 1 ))
   then
     err 'Error running mtree'
-    echo $output
+    halt
   fi
 
   evidence="evidence/$(date '+%F-%H%M%S')"
@@ -34,8 +33,13 @@ function verify {
     scp -pr -P 2222 root@localhost:"$mountpoint/$changed" $dest
   done
 
+  halt
+}
+
+function halt {
   log 'Shutting down device'
   device /sbin/halt
   kill $USBMUX
+  exit
 }
 
