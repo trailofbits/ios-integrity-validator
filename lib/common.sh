@@ -1,41 +1,58 @@
-# Logs what directory is being entered and then calls builtin `cd`.
-#
-# $1 - Directory to change to
-#
-function cd {
-  builtin cd $1
-  log 'Entering' $(pwd)
-}
-
 # Print line to terminal.
 # Includes a colored prefix to differentiate iVerify output from other output.
 #
-# $1... - Arguments to print
+# Arguments:
+#
+#   1... - Arguments to print
 #
 function log {
   print "\x1b[34m==> \x1b[37m$*\x1b[0m"
 }
 
-# Print an error to terminal, then exit.
+# Print an error to terminal.
 # Includes a colored prefix to differentiate iVerify output from other output.
 #
-# $1... - Arguments to print
+# Arguments:
+#
+#   1... - Arguments to print
 #
 function err {
   print "\x1b[31;4mError\x1b[0m: $*"
 }
 
+# Print a warning to terminal.
+# Includes a colored prefix to differentiate iVerify output from other output.
+#
+# Arguments:
+#
+#   1... - Arguments to print
+#
 function warn {
   print "\x1b[31;4mWarning\x1b[0m: $*"
 }
 
+# Run a command, recording the output in a log file, and exit if the command
+# fails. If the command succeeds, the log is deleted. If it fails, the log is
+# printed, an error is printed, and the program terminates.
+#
+# Arguments:
+#
+#   1... - Command to run
+#
+# Examples:
+#
+#   check make install
+#
 function check {
-  logdir="$HOME/Library/Logs/com.trailofbits.iverify"
+  local logdir="$HOME/Library/Logs/com.trailofbits.iverify"
   mkdir -p $logdir
 
+  local timestamp
   timestamp=$(date '+%F-%H%M%S')
-  log_path="${logdir}/$(basename $1)-${timestamp}.log"
-  >$log_path 2>&1 $*
+  local log_path="${logdir}/$(basename $1)-${timestamp}.log"
+
+  $* >$log_path 2>&1
+
   if (( $? ))
   then
     err $*
@@ -47,9 +64,20 @@ function check {
   fi
 }
 
+# Run a command on the connected iOS device.
+#
+# Arguments:
+#
+#   1... - Command to run
+#
+# Examples:
+#
+#   device /sbin/halt
+#
 function device {
   ssh -p 2222 -oStrictHostKeyChecking=no root@localhost $*
 }
 
+# mtree keywords are used in multiple places, so we define them here.
 MTREE_KEYWORDS='uid,gid,mode,sha1digest'
 

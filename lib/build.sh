@@ -1,6 +1,24 @@
 source 'lib/common.sh'
-source 'lib/download.sh'
 
+# Build a kernel and ramdisk for a given iOS version.
+#
+# Arguments:
+#
+#   1 - version of iOS for which to build
+#
+# Environment:
+#
+#   IPSW - path to iOS firmware, relative to project root
+#
+# Exports:
+#
+#   IPSW          - path to iOS firmware, relative to iphone-dataprotection
+#   RAMDISKNAME   - path to extracted ramdisk
+#   KEY           - key to decrypt ramdisk
+#   IV            - IV to decrypt ramdisk
+#   CUSTOMRAMDISK - path to write custom ramdisk
+#   OUTKERNEL     - path to patched kernel
+#
 function build_ramdisk {
   local version=$1
   if (( ! ${+IPSW_URLS[$version]} ))

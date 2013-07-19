@@ -1,7 +1,19 @@
 source 'lib/common.sh'
 
+# Boot an iOS device using redsn0w with specified firmware, ramdisk, & kernel.
+# This function blocks until the device is reachable over SSH.
+#
+# Environment:
+#
+#   IPSW          - Path to iOS firmware
+#   CUSTOMRAMDISK - Path to ramdisk
+#   OUTKERNEL     - Path to kernel
+#
+# Exports:
+#
+#   USBMUX        - PID of the usbmux tcprelay
+#
 function boot {
-
   pushd 'vendor/iphone-dataprotection'
   log 'Running redsn0w'
   ../redsn0w_mac_0.9.15b3/redsn0w.app/Contents/MacOS/redsn0w \
@@ -10,7 +22,7 @@ function boot {
     --kernelcache=${OUTKERNEL} \
     --tetheredBootLogo=../../share/TOB_Blue.png \
     >/dev/null 2>&1 &
-  redsn0w_pid=$!
+  local redsn0w_pid=$!
 
   log 'Forwarding SSH ports'
   python usbmuxd-python-client/tcprelay.py \

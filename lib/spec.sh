@@ -1,10 +1,21 @@
 source 'lib/common.sh'
 
+# Generate an mtree specification for a given iOS firmware version.
+# Specification is saved to specs/<version>.spec.
+#
+# Arguments:
+#
+#   1 - the firmware version to build a specification for
+#
+# Environment:
+#
+#   IPSW - path to downloaded iOS firmware, relative to project root
+#
 function spec {
-  version=$1
+  local version=$1
 
   mkdir -p 'specs'
-  dest="specs/${version}.spec"
+  local dest="specs/${version}.spec"
   if [[ -f $dest ]]
   then
     log $dest 'exists, remove to regenerate'
@@ -24,6 +35,7 @@ function spec {
       -o "decrypted.dmg"
 
   log 'Mounting'
+  local mount_point
   mount_point=$(hdiutil attach "decrypted.dmg" | awk '/Volumes/ { print $3 }')
   log "Mounted to $mount_point"
 

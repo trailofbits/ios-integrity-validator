@@ -1,14 +1,25 @@
 source 'lib/common.sh'
 
+# Verify the filesystem of a connected and booted iOS device.
+#
+# Arguments:
+#
+#   1 - the version of iOS to verify
+#
+# Envrionment:
+#
+#   USBMUX - PID of usbmux tcprelay, to be killed at program termination
+#
 function verify {
-  version=$1
+  local version=$1
 
   log 'Mounting filesystem'
-  mountpoint='/mnt1'
+  local mountpoint='/mnt1'
   device mount_hfs -o ro /dev/disk0s1s1 $mountpoint
 
   log 'Verifying filesystem'
-  spec="specs/${version}.spec"
+  local spec="specs/${version}.spec"
+  local output
   output=$(device /usr/local/bin/mtree \
     -k $MTREE_KEYWORDS \
     -X /etc/mtree_exclude \
@@ -24,11 +35,11 @@ function verify {
     halt
   fi
 
-  evidence="evidence/$(date '+%F-%H%M%S')"
+  local evidence="evidence/$(date '+%F-%H%M%S')"
   log 'Copying added/modified files to' $evidence
   for changed in $(echo $output | awk '/\S+ (changed|extra)$/ { print $1 }')
   do
-    dest="$evidence/$(dirname $changed)"
+    local dest="$evidence/$(dirname $changed)"
     mkdir -p $dest
     scp -pr -P 2222 root@localhost:"$mountpoint/$changed" $dest
   done

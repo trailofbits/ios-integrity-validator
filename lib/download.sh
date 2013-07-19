@@ -3,9 +3,15 @@ CACHE="${HOME}/Library/Caches/com.trailofbits.iverify"
 
 # Download an IPSW from Apple, or load it from ~/Library/Caches.
 #
-# $1 - the version of iOS to download
+# Arguments:
 #
-# Examples
+#   1 - the version of iOS to download
+#
+# Exports:
+#
+#   IPSW - path to downloaded firmware relative to the current directory
+#
+# Examples:
 #
 #   source 'lib/versions/ipod4g.sh'
 #   download '5.1.1'
@@ -13,9 +19,9 @@ CACHE="${HOME}/Library/Caches/com.trailofbits.iverify"
 # Note that you must load a version file first, as shown in the example!
 #
 function download_ipsw {
-  url=${IPSW_URLS[$1]}
-  package="${CACHE}/$(basename ${url})"
-  dest='ipsw'
+  local url=${IPSW_URLS[$1]}
+  local package="${CACHE}/$(basename ${url})"
+  local dest='ipsw'
   mkdir -p $dest
 
   if [[ -f $package &&
@@ -31,9 +37,18 @@ function download_ipsw {
   cp ${package} "${IPSW}"
 }
 
+# Download redsn0w and install it to vendor/, install Keys.plist into
+# vendor/iphone-dataprotection.
+# This function also caches to ~/Library/Caches.
+#
+# Exports:
+#
+#   REDSN0W - path to redsn0w installation
+#
 function download_redsn0w {
-  url='https://sites.google.com/a/iphone-dev.com/files/home/redsn0w_mac_0.9.15b3.zip'
-  package="${CACHE}/$(basename ${url})"
+  local url='https://sites.google.com/a/iphone-dev.com/files/home/redsn0w_mac_0.9.15b3.zip'
+  local package="${CACHE}/$(basename ${url})"
+  local basename
   basename=$(basename -s '.zip' ${package})
 
   if [[ -f ${package} &&
@@ -52,9 +67,11 @@ function download_redsn0w {
 
 # Return the sha1 hash of a file.
 #
-# $1 - the file to hash
+# Arguments:
+#
+#   $1 - the file to hash
 #
 function sha {
-  shasum ${1} | awk '{print $1}'
+  shasum $1 | awk '{print $1}'
 }
 
