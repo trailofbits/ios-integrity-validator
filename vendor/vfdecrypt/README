@@ -1,0 +1,22 @@
+This is a cross platform dmg decryption tool. Maintained by quasarboi, but credit goes to its original owner.
+
+To build on Linux, run "make linux";
+To build on Mac, run "make mac";
+To install, run "sudo make install";
+To run, run "vfdecrypt";
+To clean, run "make clean";
+To uninstall, run "sudo make uninstall".
+
+Usage: vfdecrypt -i in-file [-p password] [-k key] -o out-file
+
+NOTICE: The -i and -o flags are extremely important, as without them, the program will never terminate unless forced to.
+NOTICE: ONLY the -k -i and -o flags have been tested.
+
+Depends:
+libssl0.9.8
+
+Example: 
+Decrypting iOS 4 in your home directory.
+Once the program is compiled and installed, run:
+
+"vfdecrypt -i name_of_root_filesystem.dmg -k ec6eb0268c4e9f8ab9d003f601e8f4b36f4fc4311c61e5ebed07ce718424ffee7e7d924d -o decrypted.dmg"

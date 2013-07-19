@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+set -e
+
+source 'lib/common.sh'
+
+LDID_URL='http://networkpx.googlecode.com/files/ldid'
+LDID_DEST='/tmp/ldid'
+OSXFUSE_URL='http://downloads.sourceforge.net/project/osxfuse/osxfuse-2.6.0/osxfuse-2.6.0.dmg'
+OSXFUSE_DEST='/tmp/osxfuse.dmg'
+OSXFUSE_VOLUME='/Volumes/FUSE for OS X/'
+OSXFUSE_PKG=$OSXFUSE_VOLUME'Install OSXFUSE 2.6.pkg'
+DEVELOPER_ROOT=`xcode-select --print-path`
+CODESIGN_PATH=$DEVELOPER_ROOT'/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate'
+
+typeset -a BREW_PACKAGES
+BREW_PACKAGES=(python swig)
+typeset -a PIP_PACKAGES
+PIP_PACKAGES=(M2crypto construct progressbar setuptools pycrypto)
+
+#log 'Linking /Developer'
+#sudo ln -sf `xcode-select --print-path` //
+
+#log 'Linking codesign_allocate'
+#sudo ln -sf $CODESIGN_PATH /usr/bin
+
+if [[ -d '/Library/Frameworks/OSXFUSE.framework' ]]
+then
+  log 'OSXFUSE installed'
+else
+  log 'Downloading' $OSXFUSE_URL
+  curl -# -o $OSXFUSE_DEST -L $OSXFUSE_URL
+  log 'Installing OSXFuse'
+  hdiutil mount $OSXFUSE_DEST
+  sudo installer -pkg "$OSXFUSE_PKG" -target /
+  hdiutil eject "$OSXFUSE_VOLUME"
+fi
+
+log 'Installing' ${BREW_PACKAGES[@]}
+brew install ${BREW_PACKAGES[@]}
+log 'Installing' ${PIP_PACKAGES[@]}
+ARCHFLAGS='-arch i386 -arch x86_64' pip install -q ${PIP_PACKAGES[@]}
+
