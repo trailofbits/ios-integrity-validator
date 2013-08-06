@@ -44,3 +44,8 @@ specification generated from the firmware image itself. If any files have
 changed, or if any files have been added, the files are copied off the device
 for further inspection and analysis by the user.
 
+## Contact
+
+If you have not jailbroken your phone on purpose and iVerify finds evidence of
+modifications, send us an [e-mail](mailto:iverify@trailofbits.com) with your
+evidence file and we will take a look.
