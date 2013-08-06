@@ -15,8 +15,13 @@ BREW_PACKAGES=(python swig)
 typeset -a PIP_PACKAGES
 PIP_PACKAGES=(M2crypto construct progressbar setuptools pycrypto)
 
-log 'Linking /Developer'
-sudo ln -sf $DEVELOPER_ROOT //
+if [[ -d '/Developer' ]]
+then
+  log 'Skipping linking /Developer'
+else
+  log 'Linking /Developer'
+  sudo ln -sf $DEVELOPER_ROOT //
+fi
 
 log 'Linking codesign_allocate'
 sudo ln -sf $CODESIGN_PATH /usr/bin
