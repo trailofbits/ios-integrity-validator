@@ -46,4 +46,4 @@ for further inspection and analysis by the user.
 
 ### Contact
 
-If you have not jailbroken your phone on purpose and iVerify finds evidence of modifications, we would like to hear from you! Send us an [e-mail](mailto:iverify@trailofbits.com] with your evidence file and we'll take a look for you.
+If you have not jailbroken your phone on purpose and iVerify finds evidence of modifications, we would like to hear from you! Send us an [e-mail](mailto:iverify@trailofbits.com) with your evidence file and we'll take a look for you.
