@@ -1,5 +1,5 @@
 # Print line to terminal.
-# Includes a colored prefix to differentiate iVerify output from other output.
+# Includes a colored prefix to differentiate iiv output from other output.
 #
 # Arguments:
 #
@@ -10,7 +10,7 @@ function log {
 }
 
 # Print an error to terminal.
-# Includes a colored prefix to differentiate iVerify output from other output.
+# Includes a colored prefix to differentiate iiv output from other output.
 #
 # Arguments:
 #
@@ -21,7 +21,7 @@ function err {
 }
 
 # Print a warning to terminal.
-# Includes a colored prefix to differentiate iVerify output from other output.
+# Includes a colored prefix to differentiate iiv output from other output.
 #
 # Arguments:
 #
@@ -44,7 +44,7 @@ function warn {
 #   check make install
 #
 function check {
-  local logdir="$HOME/Library/Logs/com.trailofbits.iverify"
+  local logdir="$HOME/Library/Logs/com.trailofbits.iiv"
   mkdir -p $logdir
 
   local timestamp

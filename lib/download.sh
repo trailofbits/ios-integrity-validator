@@ -1,5 +1,5 @@
 source 'lib/common.sh'
-CACHE="${HOME}/Library/Caches/com.trailofbits.iverify"
+CACHE="${HOME}/Library/Caches/com.trailofbits.iiv"
 
 # Download an IPSW from Apple, or load it from ~/Library/Caches.
 #
